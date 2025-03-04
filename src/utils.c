@@ -1,0 +1,76 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zmetreve <zmetreve@student.42barcelon      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/16 13:51:53 by zmetreve          #+#    #+#             */
+/*   Updated: 2025/02/16 13:52:07 by zmetreve         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifdef __linux__
+# include "../lib/minilibx/minilibx_linux/mlx.h"
+#else
+# include "../lib/minilibx/minilibx_macos/mlx.h"
+#endif
+#include "../libft/libft.h"
+#include "../inc/defines.h"
+
+void	print_nbr(t_meta *meta, int x, int y, int nbr)
+{
+	char	*str;
+
+	str = ft_itoa(nbr);
+	mlx_string_put(meta->vars.mlx, meta->vars.win, x, y, NUMBER_COLOR, str);
+	free (str);
+}
+
+void	print_str(t_meta *meta, int x, int y, char *str)
+{
+	mlx_string_put(meta->vars.mlx, meta->vars.win, x, y, TEXT_COLOR, str);
+}
+
+void	dbl_free(char **ptr)
+{
+	int	i;
+
+	if (!ptr)
+		return ;
+	i = 0;
+	while (ptr[i])
+	{
+		free(ptr[i]);
+		i++;
+	}
+	free (ptr);
+}
+
+int	ft_round(double num)
+{
+	int	rounded;
+
+	rounded = (int)num;
+	if (num - rounded >= .5)
+		rounded++;
+	return (rounded);
+}
+
+void	matrix_init(float (*matrix)[3])
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < 3)
+	{
+		j = 0;
+		while (j < 3)
+		{
+			matrix[i][j] = 0;
+			j++;
+		}
+		i++;
+	}
+}
